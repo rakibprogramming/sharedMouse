@@ -1,5 +1,7 @@
 from pynput import mouse
-
+import pyautogui
+global mouseLoc
+mouseLoc=[]
 def run_listener():
     data = []  # List to store all event data
 
@@ -18,6 +20,16 @@ def run_listener():
 
     try:
         while True:
+            global mouseLoc
+            position = pyautogui.position()
+            mouseLoc.append(position)
+            
+            if len(mouseLoc) > 3:
+                d=mouseLoc[1][0]-position[0]
+                if d**2 > 0:
+                    print(d)
+                mouseLoc=[]
+
             pass
     except KeyboardInterrupt:
         listener.stop()  
