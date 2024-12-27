@@ -1,12 +1,16 @@
 from pynput.mouse import Controller
 import requests
 from pynput import mouse
+import pyautogui
 mouseC=Controller()
-a=0
+import time
+
+
 # f=requests.get("http://192.168.0.114:8000/command")
 while True:
     try:
-        f=requests.get("http://192.168.0.115:5000/get").text
+        f=requests.get("http://192.168.0.114:5000/get").text
+        requests.get("http://192.168.0.114:5000/clear")
         f=f[:-1]
         dx=0
         dy=0
@@ -14,12 +18,11 @@ while True:
         left=False
         right=False
         theList=f.split("\n")
-        a=0
+
         for i in theList:     
             nl=eval(i)       
             dx=dx+nl[1][0]
             dy=dy+nl[1][1]
-            a+=1
             if nl[0][0]:
                 left=True
             if nl[0][1]:
@@ -32,7 +35,8 @@ while True:
 
         
         
-        mouseC.move(dx)
+        mouseC.move((dx-(dx*2))*2,(dy-(dy*2))*2)
+
         if left:
             mouseC.press(mouse.Button.left)
         if not left:
@@ -41,7 +45,7 @@ while True:
             mouseC.press(mouse.Button.right)
         if not right:
             mouseC.release(mouse.Button.right)
-        mouseC.scroll(0,scr)
+        mouseC.scroll(0,(scr)*3)
     except:
         pass
         
