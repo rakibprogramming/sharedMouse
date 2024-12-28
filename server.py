@@ -1,6 +1,6 @@
 from flask import Flask, send_from_directory, request
 import os
-
+import pyautogui
 app = Flask(__name__)
 
 # Store the file content in memory to avoid re-reading after the clear request
@@ -20,6 +20,7 @@ def read_file():
 
 @app.route("/get")
 def get_file():
+
     """Serve the current file content"""
     file_name = request.args.get("file", "command")  # Default file if none specified
     file_path = f"./serverD/{file_name}"
@@ -33,16 +34,16 @@ def get_file():
 
 @app.route("/clear")
 def clear():
-    """Clear the file and reload it immediately"""
+
     with open(file_path, "w") as file:
-        file.write("")  # Clear the file content
+        file.write(f"{pyautogui.size()[0]},{pyautogui.size()[1]}\n")  
     
-    # Immediately refresh the cached file content
+
     global file_content_cache
-    file_content_cache = None  # Invalidate cache after clearing the file
+    file_content_cache = None  
     
     return "File cleared successfully", 200
 
 if __name__ == "__main__":
-    # Running Flask in threaded mode for better performance
+
     app.run(host="0.0.0.0", port=5000, debug=False, threaded=True)
