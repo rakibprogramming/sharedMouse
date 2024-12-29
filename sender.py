@@ -16,9 +16,7 @@ mouseLoc=[]
 global data
 data=[[False,False],0]
 totalScroll=0
-ScrollCount=0
-cleftState=False
-crightState=False
+
 dataCount=[]
 window_active = False  
 running=False
@@ -63,10 +61,8 @@ def run_listener():
     global running
     global counter
     global dataCount
-    global cleftState
-    global crightState
     global totalScroll
-    global ScrollCount
+
     global data
     data=[[False,False],0]
     data[1]=0
@@ -139,12 +135,12 @@ def run_listener():
                 mouseDistaceX=str(posX)
                 mouseDistaceY=str(posY)
                 totalScroll+=data[1]
-                print(totalScroll)
+
                 scrollCOndintion=str(totalScroll)
                 scX=pyautogui.size()[0]
                 scY=pyautogui.size()[1]
                 theStringeToWrite=f"[[{leftButstate},{rightButstate}],[{mouseDistaceX},{mouseDistaceY}],{scrollCOndintion},[{scX},{scY}]]\n"
-                #fileC.write(theStringeToWrite)  
+            
                 sock.sendto(str(theStringeToWrite).encode(), server_address)
                     
 

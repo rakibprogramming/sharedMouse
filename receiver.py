@@ -1,10 +1,8 @@
 from pynput.mouse import Controller
-import requests
 from pynput import mouse
 import pyautogui
 mouseC=Controller()
 import socket
-import time
 pyautogui.FAILSAFE = False
 pyautogui.PAUSE = 0 
 pv=""
@@ -46,7 +44,7 @@ while True:
             left=theList[0][0]
             right=theList[0][1]
             scr=theList[2]
-            # print(scr,previusScroll)
+
             mouseP=theList[1]
             mX=mouseP[0]
             mY=mouseP[1]
