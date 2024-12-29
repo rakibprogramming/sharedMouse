@@ -8,6 +8,7 @@ import time
 pyautogui.FAILSAFE = False
 pyautogui.PAUSE = 0 
 pv=""
+runningStatusText=True
 previusScroll=0
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(('0.0.0.0', 3834))  
@@ -32,6 +33,9 @@ while True:
         sock.bind(('0.0.0.0', 3834)) 
         data, addr = sock.recvfrom(1024)
         f=data.decode()
+        if runningStatusText:
+            print("Running...")
+            runningStatusText=False
         if not f==pv:
             pv=f
             theList=eval(f)
@@ -60,7 +64,7 @@ while True:
             if not scr == previusScroll:
                 
                 theScroll=scr-previusScroll
-                print(theScroll)  
+                 
                 previusScroll=scr
                 mouseC.scroll(0,theScroll*3)
     except:

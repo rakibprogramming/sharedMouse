@@ -12,6 +12,7 @@ espKeyChekingState=0
 Sy=Sy/2
 global mouseLoc
 mouseLoc=[]
+
 global data
 data=[[False,False],0]
 totalScroll=0
@@ -24,6 +25,7 @@ running=False
 counter=0
 print("✨ Please enter the receiver's IP address to connect✨")
 rIp=input("ip: ")
+print("Running... (press esc key to start and stop sharing)")
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_address = (rIp, 3834)
 def transparent_window():
@@ -101,19 +103,19 @@ def run_listener():
                 
                 if not running and not window_active and espKeyChekingState==0:
                     running=True
-                    print("YEs")
+                    print("Sharing....")
                     window_active=True
                     middle_button_pressed=0
                     manage_thread()
                     espKeyChekingState=1     
                 if running and not espKeyChekingState==1:
                     running=False
+                    print("Sharing Stopped")
                     espKeyChekingState=0
                     window_active=False
                     middle_button_pressed=0               
             if middle_button_pressed==2:
                 
-                print("presed")
                 
                 if not running and middle_button_pressed==2:
                     running=True
